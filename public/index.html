@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KathaCharts Marketing Agent V3.2 FINAL</title>
+<style>
+:root{--bg:#09090d;--card:#121219;--card2:#17171f;--line:#292933;--muted:#aaa;--gold:#f2b84b;--green:#73d99a;--red:#ff7777;--blue:#8db8ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f5f7;font-family:Arial,sans-serif}.wrap{max-width:1200px;margin:auto;padding:22px}
+.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:16px}.brand{font-weight:900;font-size:20px}.pill{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:#aaa;font-size:12px}
+.hero{padding:38px 0 20px}.eyebrow{font-size:11px;letter-spacing:1.7px;color:var(--gold);font-weight:900}.hero h1{font-size:42px;max-width:900px;margin:10px 0}.hero p{color:var(--muted);font-size:15px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}.card h2{margin:0 0 14px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.stat{background:var(--card2);padding:13px;border-radius:11px}.stat b{display:block;font-size:22px}.stat span{color:#999;font-size:11px}
+input,select,textarea{width:100%;background:#0b0b10;color:#fff;border:1px solid #363640;border-radius:8px;padding:10px;margin:7px 0 11px;font-size:14px}label{font-size:12px;font-weight:700}
+button{border:0;border-radius:8px;padding:10px 13px;font-weight:900;cursor:pointer;margin:3px 5px 3px 0}.primary{background:var(--gold);color:#111}.secondary{background:#292933;color:#fff}.danger{background:#4b2525;color:#fff}.ghost{background:#1d2635;color:#dce8ff}
+.langrow{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0 10px}.langrow label{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;cursor:pointer}
+.notice{border-left:3px solid var(--gold);padding:10px 12px;background:var(--card2);color:#ccc;font-size:12px;line-height:1.5}.sectiongap{margin-top:16px}.muted{color:#999}.small{font-size:11px}.ok{color:var(--green)}.warn{color:var(--gold)}.bad{color:var(--red)}
+.draft,.action{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}.post{background:var(--card2);border-radius:9px;padding:10px;margin:8px 0;white-space:pre-wrap;line-height:1.45}.tag{display:inline-block;font-size:10px;padding:5px 8px;border-radius:999px;background:#292933;color:#ddd}.pitch{background:#0b0b10;border:1px solid var(--line);padding:11px;border-radius:9px;white-space:pre-wrap;margin-top:9px;font-size:12px;line-height:1.45}.action-buttons{margin-top:8px}.toolbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.traffic{background:var(--card2);padding:10px;border-radius:9px;margin-top:8px}.banner{padding:11px;border-radius:10px;background:#15151d;margin-bottom:12px}.execution{border:1px solid #303747;background:#10131a;border-radius:9px;padding:10px;margin-top:9px}.kpis{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.kpi{background:#0d0d12;border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:11px}
+@media(max-width:900px){.grid,.two{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:33px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="brand">KathaCharts ✦ Marketing Agent V3.2</div><div class="pill" id="status">checking…</div></header>
+
+<section class="hero">
+<div class="eyebrow">TRAFFIC + REVENUE EXECUTION ENGINE · FINAL</div>
+<h1>Make KathaCharts known. Then relentlessly find legitimate revenue.</h1>
+<p>The engine hunts continuously, prioritizes direct revenue when cash is tight, prepares approval-ready execution packages, follows up, measures realized revenue and re-hunts. It never sends messages, publishes, spends money or makes commitments without your approval.</p>
+</section>
+
+<section class="card">
+<h2>📊 Business snapshot</h2>
+<div class="stats">
+<div class="stat"><b id="visitors">0</b><span>Visitors</span></div>
+<div class="stat"><b id="clicks">0</b><span>Outbound clicks</span></div>
+<div class="stat"><b id="leads">0</b><span>Writer leads</span></div>
+<div class="stat"><b id="pipeline">₹0</b><span>Active pipeline</span></div>
+<div class="stat"><b id="potential">₹0</b><span>Total revenue potential</span></div>
+</div>
+</section>
+
+<section class="card sectiongap">
+<h2>🔐 Operator control</h2>
+<div class="two">
+<div><label>Admin key (required after deployment)</label><input id="adminKey" type="password" placeholder="Enter AGENT_ADMIN_KEY"><div class="small muted">Stored only in this browser session.</div></div>
+<div><label>Engine heartbeat</label><div class="banner"><b id="heartbeat">Checking…</b><br><span class="small muted" id="heartbeatDetail"></span></div></div>
+</div>
+</section>
+
+<div class="grid sectiongap">
+<section class="card">
+<h2>📣 Generate traffic campaign</h2>
+<label>Campaign topic</label><input id="topic" value="KathaCharts launch — build awareness and attract readers">
+<label>Languages</label>
+<div class="langrow"><label><input id="mr" type="checkbox" checked> मराठी</label><label><input id="hi" type="checkbox" checked> हिंदी</label><label><input id="en" type="checkbox" checked> English</label></div>
+<div class="notice">Primary KPI: visitors and discovery. Paid writer promotion is secondary and should be introduced after qualified traffic starts growing.</div>
+<button class="primary" onclick="generate()">Generate 7-day campaign</button>
+</section>
+
+<section class="card">
+<h2>🎯 Writer lead</h2>
+<input id="name" placeholder="Writer / page name"><input id="handle" placeholder="Public handle or profile URL">
+<select id="platform"><option>Pratilipi</option><option>Instagram</option><option>YouTube</option><option>Facebook</option><option>Website</option><option>Other</option></select>
+<input id="niche" placeholder="Language / genre / niche"><button class="primary" onclick="addLead()">Save lead</button><div id="leadMsg"></div>
+<p class="small muted">Use public/consented prospects only. No bulk unsolicited messaging.</p>
+</section>
+</div>
+
+<section class="card sectiongap">
+<h2>📝 Draft queue</h2><div id="drafts">No drafts yet.</div>
+</section>
+
+<section class="card sectiongap">
+<h2>🫁 Revenue Survival Mode</h2>
+<div class="notice">₹5,000 is the minimum survival floor, never a ceiling. Below the floor, direct revenue gets maximum urgency. Above the floor, revenue hunting continues and larger-value opportunities remain eligible.</div>
+<div class="kpis"><span class="kpi">Revenue <b id="rev">₹0</b></span><span class="kpi">Cost <b id="opCost">₹0</b></span><span class="kpi">Oxygen <b id="oxy">CRITICAL</b></span><span class="kpi">Gap <b id="gap">₹5,000</b></span></div>
+<div class="grid">
+<div><label>Current monthly revenue (₹)</label><input id="revenue" type="number" min="0"><label>Current monthly operating cost (₹)</label><input id="costInput" type="number" min="0"><label>Minimum survival floor (₹)</label><input id="target" type="number" min="5000" value="5000"><button class="primary" onclick="saveFinance()">Update oxygen</button></div>
+<div><h3>🔥 Opportunity Hunter</h3><p class="muted">Ranks legitimate revenue opportunities by expected value, probability, speed and cost. Hunting is continuous; execution remains approval-first.</p><button class="primary" onclick="hunt()">Hunt now</button><button class="secondary" onclick="planRevenue()">Build action plan</button><div id="opps"></div></div>
+</div>
+</section>
+
+<section class="card sectiongap">
+<h2>⚡ Revenue Execution Queue</h2>
+<div class="notice">Hunt → Score → Prepare → Approve → Execute → Follow-up → Measure → Re-hunt. The execution package is prepared after approval; external sending/publishing/spending remains a human-controlled gate.</div>
+<div id="summary" class="small muted" style="margin:10px 0">Loading…</div>
+<div id="actions">No revenue actions yet.</div>
+</section>
+
+<section class="card sectiongap">
+<h2>💰 Record realized revenue</h2>
+<div class="two"><div><label>Amount received (₹)</label><input id="eventAmount" type="number" min="1" placeholder="e.g. 7500"></div><div><label>Source / action</label><select id="eventAction"><option value="">Manual / not linked</option></select><input id="eventSource" placeholder="Writer promotion / sponsorship / other"></div></div>
+<button class="primary" onclick="recordRevenue()">Record revenue</button><div id="eventMsg"></div>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const apiKeyKey='kathacharts_admin_key';
+$('adminKey').value=sessionStorage.getItem(apiKeyKey)||'';
+$('adminKey').addEventListener('input',()=>sessionStorage.setItem(apiKeyKey,$('adminKey').value));
+function headers(){let h={'Content-Type':'application/json'};let k=$('adminKey').value.trim();if(k)h['X-Admin-Key']=k;return h}
+async function api(p,o={}){o.headers={...(o.headers||{}),...headers()};let r=await fetch(p,o);let d={};try{d=await r.json()}catch{};if(!r.ok&&!d.error)d.error='Request failed';return d}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function money(n){return '₹'+Number(n||0).toLocaleString('en-IN')}
+function selected(){let a=[];if($('mr').checked)a.push('marathi');if($('hi').checked)a.push('hindi');if($('en').checked)a.push('english');return a}
+function renderFinance(s){let f=s.finance||s,sv=s.survival||s;$('rev').textContent=money(f.revenue);$('opCost').textContent=money(f.operatingCost);$('oxy').textContent=sv.state;$('gap').textContent=money(sv.gap);$('revenue').value=f.revenue;$('costInput').value=f.operatingCost;$('target').value=Math.max(5000,f.monthlyTarget||5000)}
+function renderOpps(arr){$('opps').innerHTML=(arr||[]).slice(0,6).map(o=>`<div class="traffic"><b>${esc(o.name)}</b><br><span class="muted">${esc(o.why)}</span><br><span class="tag">${esc(o.priority)} · Score ${o.score} · Est. ${money(o.estimatedRevenue)}</span><br><span class="small">Next: ${esc(o.action)}</span></div>`).join('')||'<p class="muted">No opportunities.</p>'}
+function renderSummary(x){$('summary').textContent=`State: ${x.state} · Proposed: ${x.proposed} · Approved: ${x.approved} · In progress: ${x.inProgress} · Won: ${x.won} · Lost: ${x.lost} · Pipeline: ${money(x.activePipeline)} · Realized: ${money(x.realizedRevenue)}`}
+function renderActions(arr){
+ $('actions').innerHTML=(arr||[]).map(a=>{
+   let controls='';
+   if(a.status==='PROPOSED')controls=`<button class="primary" onclick="actionStatus('${a.id}','APPROVED')">Approve action</button><button class="danger" onclick="actionStatus('${a.id}','REJECTED')">Reject</button>`;
+   if(a.status==='APPROVED')controls=`<button class="primary" onclick="executeAction('${a.id}')">Prepare execution</button><button class="danger" onclick="actionStatus('${a.id}','REJECTED')">Reject</button>`;
+   if(a.status==='IN_PROGRESS')controls=`<button class="primary" onclick="followUp('${a.id}')">Prepare 48h follow-up</button><button class="secondary" onclick="selectRevenue('${a.id}')">Record received revenue</button><button class="danger" onclick="actionStatus('${a.id}','LOST')">Mark lost</button>`;
+   let ex=a.execution?`<div class="execution"><b>Execution package prepared</b><br><span class="small">${esc(a.execution.channel)} · Attempt ${a.attempts||1}/${a.maxAttempts||3}</span><div class="pitch">${esc(a.execution.message||'')}</div>${a.nextFollowUpAt?`<div class="small warn">Follow-up target: ${esc(new Date(a.nextFollowUpAt).toLocaleString())}</div>`:''}</div>`:'';
+   return `<div class="action"><span class="tag">${esc(a.status)} · ${esc(a.priority)} · Est. ${money(a.estimatedRevenue)}</span><h3>${esc(a.name)}</h3><p class="muted">${esc(a.action)}</p><div class="pitch">${esc(a.pitch)}</div>${ex}<div class="action-buttons">${controls}</div></div>`;
+ }).join('')||'<p class="muted">No revenue actions yet. Click “Hunt now”.</p>';
+}
+function renderRevenueActions(arr){let sel=$('eventAction');sel.innerHTML='<option value="">Manual / not linked</option>'+(arr||[]).filter(a=>['IN_PROGRESS','APPROVED'].includes(a.status)).map(a=>`<option value="${a.id}">${esc(a.name)} — ${money(a.estimatedRevenue)}</option>`).join('')}
+async function load(){
+ let s=await api('/api/state');$('visitors').textContent=s.metrics.visitors;$('clicks').textContent=s.metrics.clicks;$('leads').textContent=s.metrics.leads;$('pipeline').textContent=money(s.revenueSummary.activePipeline);$('potential').textContent=money(s.revenueSummary.totalRevenuePotential);
+ renderFinance(s);renderOpps(s.opportunities);renderActions(s.revenueActions);renderRevenueActions(s.revenueActions);renderSummary(s.revenueSummary);
+ let h=await api('/api/health');$('status').textContent=h.authorized?(h.ai?'AI connected · V3.2 FINAL':'Fallback · V3.2 FINAL'):'Admin key required';$('status').className='pill '+(h.authorized?'ok':'bad');$('heartbeat').textContent=`Hunter active · every ${h.huntIntervalMinutes||30} min`;$('heartbeatDetail').textContent=`${h.authorized?'Deployment controls ready.':'Set AGENT_ADMIN_KEY in production.'} Site: ${h.site}`;
+ if(!s.revenueActions.length && h.authorized){await hunt(true)}
+}
+async function saveFinance(){let d=await api('/api/finance',{method:'POST',body:JSON.stringify({revenue:$('revenue').value,operatingCost:$('costInput').value,monthlyTarget:$('target').value})});if(d.error)return alert(d.error);await load()}
+async function hunt(silent=false){if(!silent)$('opps').innerHTML='<p class="warn">Hunting…</p>';let d=await api('/api/revenue/hunt',{method:'POST',body:JSON.stringify({limit:8})});if(d.error){if(!silent)alert(d.error);return}renderOpps(d.opportunities);renderActions(d.actions);renderRevenueActions(d.actions);renderSummary(d.summary);$('pipeline').textContent=money(d.summary.activePipeline);$('potential').textContent=money(d.summary.totalRevenuePotential)}
+async function planRevenue(){await hunt(false)}
+async function actionStatus(id,status){let d=await api('/api/revenue/action',{method:'POST',body:JSON.stringify({id,status})});if(d.error)return alert(d.error);await load()}
+async function executeAction(id){let d=await api('/api/revenue/execute',{method:'POST',body:JSON.stringify({id})});if(d.error)return alert(d.error);await load()}
+async function followUp(id){let d=await api('/api/revenue/followup',{method:'POST',body:JSON.stringify({id})});if(d.error)return alert(d.error);await load()}
+function selectRevenue(id){$('eventAction').value=id;$('eventAmount').focus()}
+async function recordRevenue(){let d=await api('/api/revenue/event',{method:'POST',body:JSON.stringify({amount:$('eventAmount').value,source:$('eventSource').value,actionId:$('eventAction').value})});$('eventMsg').innerHTML=d.error?`<span class="bad">${esc(d.error)}</span>`:'<span class="ok">✓ Revenue recorded and oxygen updated. Agent will re-hunt.</span>';if(!d.error){$('eventAmount').value='';$('eventSource').value='';await load()}}
+function renderPosts(d){let obj=d.postsByLanguage||{};return Object.entries(obj).map(([lang,x])=>`<h4>${esc(lang.toUpperCase())} — ${esc(x.headline||'')}</h4>`+(x.posts||[]).map(p=>`<div class="post">${esc(p)}</div>`).join('')).join('')}
+async function generate(){let langs=selected();if(!langs.length)return alert('Select at least one language.');let d=await api('/api/generate',{method:'POST',body:JSON.stringify({topic:$('topic').value,languages:langs})});if(d.error)return alert(d.error);await load()}
+async function addLead(){let d=await api('/api/leads',{method:'POST',body:JSON.stringify({name:$('name').value,handle:$('handle').value,platform:$('platform').value,niche:$('niche').value})});$('leadMsg').innerHTML=d.error?`<span class="bad">${esc(d.error)}</span>`:'<span class="ok">✓ Lead saved.</span>';if(!d.error){$('name').value='';$('handle').value='';$('niche').value='';await load()}}
+async function setStatus(id,status){await api('/api/draft/status',{method:'POST',body:JSON.stringify({id,status})});await load()}
+load();setInterval(load,30000);
+</script>
+</body></html>
