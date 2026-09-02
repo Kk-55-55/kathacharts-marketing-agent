@@ -53,7 +53,7 @@ button{border:0;border-radius:8px;padding:10px 13px;font-weight:900;cursor:point
 <label>Languages</label>
 <div class="langrow"><label><input id="mr" type="checkbox" checked> मराठी</label><label><input id="hi" type="checkbox" checked> हिंदी</label><label><input id="en" type="checkbox" checked> English</label></div>
 <div class="notice">Primary KPI: visitors and discovery. Paid writer promotion is secondary and should be introduced after qualified traffic starts growing.</div>
-<button class="primary" onclick="generate()">Generate 7-day campaign</button>
+<button class="primary" onclick="generate()">Generate 7-day campaign</button><div id="campaignResult" style="margin-top:12px"></div>
 </section>
 
 <section class="card">
@@ -119,7 +119,7 @@ function renderActions(arr){
 function renderRevenueActions(arr){let sel=$('eventAction');sel.innerHTML='<option value="">Manual / not linked</option>'+(arr||[]).filter(a=>['IN_PROGRESS','APPROVED'].includes(a.status)).map(a=>`<option value="${a.id}">${esc(a.name)} — ${money(a.estimatedRevenue)}</option>`).join('')}
 async function load(){
  let s=await api('/api/state');$('visitors').textContent=s.metrics.visitors;$('clicks').textContent=s.metrics.clicks;$('leads').textContent=s.metrics.leads;$('pipeline').textContent=money(s.revenueSummary.activePipeline);$('potential').textContent=money(s.revenueSummary.totalRevenuePotential);
- renderFinance(s);renderOpps(s.opportunities);renderActions(s.revenueActions);renderRevenueActions(s.revenueActions);renderSummary(s.revenueSummary);
+ renderFinance(s);renderOpps(s.opportunities);renderActions(s.revenueActions);renderRevenueActions(s.revenueActions);renderSummary(s.revenueSummary);renderDrafts(s.drafts);if(s.drafts&&s.drafts.length)renderCampaign(s.drafts[0]);
  let h=await api('/api/health');$('status').textContent=h.authorized?(h.ai?'AI connected · V3.2 FINAL':'Fallback · V3.2 FINAL'):'Admin key required';$('status').className='pill '+(h.authorized?'ok':'bad');$('heartbeat').textContent=`Hunter active · every ${h.huntIntervalMinutes||30} min`;$('heartbeatDetail').textContent=`${h.authorized?'Deployment controls ready.':'Set AGENT_ADMIN_KEY in production.'} Site: ${h.site}`;
  if(!s.revenueActions.length && h.authorized){await hunt(true)}
 }
@@ -131,8 +131,10 @@ async function executeAction(id){let d=await api('/api/revenue/execute',{method:
 async function followUp(id){let d=await api('/api/revenue/followup',{method:'POST',body:JSON.stringify({id})});if(d.error)return alert(d.error);await load()}
 function selectRevenue(id){$('eventAction').value=id;$('eventAmount').focus()}
 async function recordRevenue(){let d=await api('/api/revenue/event',{method:'POST',body:JSON.stringify({amount:$('eventAmount').value,source:$('eventSource').value,actionId:$('eventAction').value})});$('eventMsg').innerHTML=d.error?`<span class="bad">${esc(d.error)}</span>`:'<span class="ok">✓ Revenue recorded and oxygen updated. Agent will re-hunt.</span>';if(!d.error){$('eventAmount').value='';$('eventSource').value='';await load()}}
-function renderPosts(d){let obj=d.postsByLanguage||{};return Object.entries(obj).map(([lang,x])=>`<h4>${esc(lang.toUpperCase())} — ${esc(x.headline||'')}</h4>`+(x.posts||[]).map(p=>`<div class="post">${esc(p)}</div>`).join('')).join('')}
-async function generate(){let langs=selected();if(!langs.length)return alert('Select at least one language.');let d=await api('/api/generate',{method:'POST',body:JSON.stringify({topic:$('topic').value,languages:langs})});if(d.error)return alert(d.error);await load()}
+function renderPosts(d){let obj=d.postsByLanguage||{};return Object.entries(obj).map(([lang,x])=>`<h4>${esc(lang.toUpperCase())} — ${esc(x.headline||'')}</h4>`+(x.posts||[]).map(p=>`<div class="post">${esc(p)}</div>`).join('')).join('')||'<p class="muted">No campaign content returned.</p>'}
+function renderCampaign(d){if(!d){$('campaignResult').innerHTML='';return}let id=d.id||'';$('campaignResult').innerHTML=`<div class="traffic"><b>✓ 7-day campaign generated</b><br><span class="small muted">Draft ${esc(id)} · Status ${esc(d.status||'draft')}</span>${renderPosts(d)}<div class="action-buttons"><button class="secondary" onclick="setStatus('${id}','approved')">Approve draft</button><button class="secondary" onclick="setStatus('${id}','published')">Mark published</button></div></div>`}
+function renderDrafts(arr){$('drafts').innerHTML=(arr||[]).map(d=>`<div class="draft"><span class="tag">${esc(d.status||'draft')} · ${esc(d.id||'')}</span><h3>${esc(d.topic||'KathaCharts campaign')}</h3>${renderPosts(d)}<div class="action-buttons"><button class="secondary" onclick="setStatus('${esc(d.id)}','approved')">Approve</button><button class="secondary" onclick="setStatus('${esc(d.id)}','published')">Mark published</button></div></div>`).join('')||'No drafts yet.'}
+async function generate(){let langs=selected();if(!langs.length)return alert('Select at least one language.');$('campaignResult').innerHTML='<div class="traffic">Generating campaign…</div>';let d=await api('/api/generate',{method:'POST',body:JSON.stringify({topic:$('topic').value,languages:langs})});if(d.error){$('campaignResult').innerHTML=`<div class="bad">${esc(d.error)}</div>`;return}renderCampaign(d.draft);await load()}
 async function addLead(){let d=await api('/api/leads',{method:'POST',body:JSON.stringify({name:$('name').value,handle:$('handle').value,platform:$('platform').value,niche:$('niche').value})});$('leadMsg').innerHTML=d.error?`<span class="bad">${esc(d.error)}</span>`:'<span class="ok">✓ Lead saved.</span>';if(!d.error){$('name').value='';$('handle').value='';$('niche').value='';await load()}}
 async function setStatus(id,status){await api('/api/draft/status',{method:'POST',body:JSON.stringify({id,status})});await load()}
 load();setInterval(load,30000);
