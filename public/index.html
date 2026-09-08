@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KathaCharts Marketing Agent V3.2 FINAL</title>
+<title>KathaCharts Marketing Agent V3.3 SEMI-AUTONOMOUS</title>
 <style>
 :root{--bg:#09090d;--card:#121219;--card2:#17171f;--line:#292933;--muted:#aaa;--gold:#f2b84b;--green:#73d99a;--red:#ff7777;--blue:#8db8ff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f5f5f7;font-family:Arial,sans-serif}.wrap{max-width:1200px;margin:auto;padding:22px}
@@ -19,7 +19,7 @@ button{border:0;border-radius:8px;padding:10px 13px;font-weight:900;cursor:point
 </head>
 <body>
 <main class="wrap">
-<header class="top"><div class="brand">KathaCharts ✦ Marketing Agent V3.2</div><div class="pill" id="status">checking…</div></header>
+<header class="top"><div class="brand">KathaCharts ✦ Marketing Agent V3.3</div><div class="pill" id="status">checking…</div></header>
 
 <section class="hero">
 <div class="eyebrow">TRAFFIC + REVENUE EXECUTION ENGINE · FINAL</div>
@@ -128,7 +128,7 @@ function renderRevenueActions(arr){let sel=$('eventAction');sel.innerHTML='<opti
 async function load(){
  let s=await api('/api/state');$('visitors').textContent=s.metrics.visitors;$('clicks').textContent=s.metrics.clicks;$('leads').textContent=s.metrics.leads;$('pipeline').textContent=money(s.revenueSummary.activePipeline);$('potential').textContent=money(s.revenueSummary.totalRevenuePotential);
  renderFinance(s);renderChannels(s.channels);renderOpps(s.opportunities);renderActions(s.revenueActions);renderRevenueActions(s.revenueActions);renderSummary(s.revenueSummary);renderDrafts(s.drafts);if(s.drafts&&s.drafts.length)renderCampaign(s.drafts[0]);
- let h=await api('/api/health');$('status').textContent=h.authorized?(h.ai?'AI connected · V3.2 FINAL':'Fallback · V3.2 FINAL'):'Admin key required';$('status').className='pill '+(h.authorized?'ok':'bad');$('heartbeat').textContent=`Hunter active · every ${h.huntIntervalMinutes||30} min`;$('heartbeatDetail').textContent=`${h.authorized?'Deployment controls ready.':'Set AGENT_ADMIN_KEY in production.'} Site: ${h.site}`;
+ let h=await api('/api/health');$('status').textContent=h.authorized?(h.ai?'AI connected · V3.3':'AI off · V3.3'):'Admin key required';$('status').className='pill '+(h.authorized?'ok':'bad');$('heartbeat').textContent=`Hunter active · every ${h.huntIntervalMinutes||30} min`;$('heartbeatDetail').textContent=`${h.authorized?'Deployment controls ready.':'Set AGENT_ADMIN_KEY in production.'} Site: ${h.site}`;
  if(!s.revenueActions.length && h.authorized){await hunt(true)}
 }
 async function saveFinance(){let d=await api('/api/finance',{method:'POST',body:JSON.stringify({revenue:$('revenue').value,operatingCost:$('costInput').value,monthlyTarget:$('target').value})});if(d.error)return alert(d.error);await load()}
