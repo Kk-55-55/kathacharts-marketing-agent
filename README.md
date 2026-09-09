@@ -45,3 +45,7 @@ Open `http://localhost:3100`.
 ## Production
 
 Set a strong `AGENT_ADMIN_KEY`. Keep API credentials in Render environment variables, never in source control. Use persistent storage for `agent-data.json` or move state to a managed database before relying on it for long-term production records.
+
+
+## Instagram Login API support (V3.3.1 patch)
+The agent now supports Meta's Instagram Login route directly. Set `INSTAGRAM_ACCESS_TOKEN`, `INSTAGRAM_USER_ID`, and a public HTTPS `INSTAGRAM_IMAGE_URL`; the legacy Facebook Page token route remains available as a fallback. Instagram publishing uses the official Instagram API and requires the appropriate content-publishing permission. Do not paste tokens into chat.
